@@ -60,16 +60,23 @@ public class WebFormsTest {
             }
         }
         //dropDown
-        List<WebElement> dropDownCheck = driver.findElements(By.xpath("//select[@id='fruit-selects']/option"));
-        for (WebElement dropCheck : dropDownCheck) {
-            if (dropCheck.isEnabled()) {
-                System.out.println("Those are enabled");
-            } else {
+//        List<WebElement> dropDownCheck = driver.findElements(By.xpath("//select[@id='fruit-selects']/option"));
+//        for (WebElement dropCheck : dropDownCheck) {
+//            if (dropCheck.isEnabled()) {
+//                System.out.println("Those are enabled");
+//            } else {
+//                System.out.println("Orange is diasabled");
+//                break;
+//            }
+
+            WebElement orangeCheck = driver.findElement(By.xpath("//select[@id='fruit-selects']/option[2]"));
+            if (orangeCheck.isEnabled()){
+                System.out.println("Orange is enabled");
+            }else {
                 System.out.println("Orange is diasabled");
-                break;
             }
         }
     }
-}
+
 
 
