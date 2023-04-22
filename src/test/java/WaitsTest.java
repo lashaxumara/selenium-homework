@@ -28,7 +28,7 @@ public class WaitsTest {
     public void waitsTest() {
         //Explicit wait
         Duration duration = Duration.ofSeconds(15);
-        WebDriverWait wait = new WebDriverWait(driver, duration);
+        WebDriverWait wait = new WebDriverWait(driver,duration);
 
         driver.get("https://demoqa.com/progress-bar");
         WebElement startButton = driver.findElement(By.id("startStopButton"));
