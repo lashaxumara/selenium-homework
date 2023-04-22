@@ -13,8 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class SwitchToTest {
     WebDriver driver;
 
-    WebDriverWait wait;
-
     @BeforeMethod
     public void start() {
         driver = new ChromeDriver();
