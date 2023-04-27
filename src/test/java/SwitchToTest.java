@@ -43,7 +43,7 @@ public class SwitchToTest {
     public void alertButton() {
         driver.get("https://demoqa.com/alerts");
         driver.findElement(By.id("alertButton")).click();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        driver.switchTo().alert().accept();
+
     }
 }
