@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -12,13 +13,18 @@ public class Exceptions {
 
     WebDriver driver;
     JavascriptExecutor js;
+    WebElement timeAlerClick;
 
     @BeforeMethod
     public void start() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get("https://demoqa.com/alerts");
+
         js = (JavascriptExecutor) driver;
+        timeAlerClick = driver.findElement(By.id("timerAlertButton"));
     }
 
     @AfterMethod
@@ -28,7 +34,6 @@ public class Exceptions {
 
     @Test
     public void execute() {
-        WebElement timeAlerClick = driver.findElement(By.id("timerAlertButton"));
         Duration duration = Duration.ofSeconds(3);
 
         try {
@@ -41,7 +46,6 @@ public class Exceptions {
 
     @Test
     public void executeHandling() {
-        WebElement timeAlerClick = driver.findElement(By.id("timerAlertButton"));
         js.executeScript("$(arguments[0]).click();", timeAlerClick);
 
         try {
@@ -56,11 +60,8 @@ public class Exceptions {
 
     @Test
     public void staleElementReferenceException() {
-        WebElement timeAlerClick = driver.findElement(By.id("timerAlertButton"));
-
-        js.executeScript("arguments[0].remove();", timeAlerClick);
-
         try {
+            js.executeScript("arguments[0].remove();", timeAlerClick);
             js.executeScript("$(arguments[0]).click();", timeAlerClick);
         } catch (StaleElementReferenceException e) {
             System.out.println(e);

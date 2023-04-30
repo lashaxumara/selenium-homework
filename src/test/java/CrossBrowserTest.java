@@ -1,25 +1,32 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class JSexecutor {
+public class CrossBrowserTest {
     WebDriver driver;
     Actions action;
     JavascriptExecutor js;
 
     @BeforeMethod
-    public void start() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
-        driver = new ChromeDriver(options);
+    @Parameters("browser")
+    public void start(String browser) {
+        if (browser.equalsIgnoreCase("chrome")){
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        }else if (browser.equalsIgnoreCase("edge")){
+            WebDriverManager.edgedriver().setup();
+            driver= new EdgeDriver();
+        }
         driver.manage().window().maximize();
 
         action = new Actions(driver);
